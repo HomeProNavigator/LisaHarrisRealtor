@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Search Homes for Sale | Las Vegas &amp; Henderson | Lisa Harris</title>
+  <title>Search Homes for Sale | Las Vegas & Henderson | Lisa Harris</title>
   <meta name="description" content="Search current Las Vegas and Henderson homes for sale with live MLS data. Browse Summerlin, Henderson, Downtown Las Vegas, North Las Vegas and more with Lisa Harris." />
   <link rel="canonical" href="https://lisaharrisrealty.com/search.html" />
 
-  <meta property="og:title" content="Search Homes | Las Vegas &amp; Henderson Real Estate" />
+  <meta property="og:title" content="Search Homes | Las Vegas & Henderson Real Estate" />
   <meta property="og:description" content="Live MLS search for Las Vegas and Henderson properties." />
   <meta property="og:url" content="https://lisaharrisrealty.com/search.html" />
 
@@ -21,6 +21,59 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
+
+    .mobile-search-launch {
+      display: none;
+      padding: 1.25rem 1.25rem 1rem;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-search-launch .launch-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1.25rem;
+      text-align: center;
+    }
+    .mobile-search-launch h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .mobile-search-launch p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.15rem;
+      line-height: 1.5;
+    }
+    .mobile-search-launch .btn {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .mobile-search-launch .launch-note {
+      margin-top: 0.85rem;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 768px) {
+      .mobile-search-launch { display: block; }
+      .search-header .desktop-only { display: none !important; }
+      .idx-wrapper {
+        min-height: 0 !important;
+        overflow: visible !important;
+        height: auto !important;
+      }
+      #idx-frame {
+        position: static !important;
+        width: 100% !important;
+        min-height: 2200px !important;
+        height: 2200px !important;
+        border: 0;
+        background: #fff;
+      }
+    }
+
     @media (min-width: 769px) {
       body.search-body {
         overflow: hidden;
@@ -31,6 +84,7 @@
         height: calc(100vh - var(--header-h));
         height: calc(100dvh - var(--header-h));
       }
+      .mobile-search-launch { display: none !important; }
     }
   </style>
 </head>
@@ -56,17 +110,37 @@
       <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
         <div>
           <a href="/" style="font-size: 0.8rem; color: var(--text-dim);">← Back to Home</a>
-          <h1 style="font-size: 1.35rem; margin-top: 0.2rem;">Search Las Vegas &amp; Henderson Homes</h1>
+          <h1 style="font-size: 1.35rem; margin-top: 0.2rem;">Search Las Vegas & Henderson Homes</h1>
         </div>
-        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;">
+        <div class="desktop-only" style="display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;">
           <a href="https://las.mlsmatrix.com/Matrix/public/IDX.aspx?idx=872890c" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Open Search in New Tab</a>
           <a href="/contact.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Need Help?</a>
         </div>
       </div>
     </div>
 
+    <div class="mobile-search-launch">
+      <div class="launch-card">
+        <h2>Search homes on mobile</h2>
+        <p>
+          For the full MLS filters (price, beds, city, property type, and more), open the live search in a new tab.
+          That loads the complete Matrix experience your phone can use.
+        </p>
+        <a
+          class="btn btn-primary"
+          href="https://las.mlsmatrix.com/Matrix/public/IDX.aspx?idx=872890c"
+          target="_blank"
+          rel="noopener noreferrer">
+          Open Full MLS Search
+        </a>
+        <p class="launch-note">Or scroll down to browse the embedded map & listings on this page.</p>
+        <p style="margin-top: 0.75rem;">
+          <a href="/contact.html" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; width: auto;">Prefer help from Lisa?</a>
+        </p>
+      </div>
+    </div>
+
     <div class="idx-wrapper" id="idx-wrapper">
-      <!-- Exact IDX iframe source — unchanged -->
       <iframe
         id="idx-frame"
         src="https://las.mlsmatrix.com/Matrix/public/IDX.aspx?idx=872890c"
@@ -105,27 +179,34 @@
       function sizeFrame() {
         var header = document.querySelector('.site-header');
         var searchHeader = document.querySelector('.search-header');
+        var launch = document.querySelector('.mobile-search-launch');
         var legal = document.querySelector('.search-legal');
         var used = 0;
         if (header) used += header.offsetHeight;
         if (searchHeader) used += searchHeader.offsetHeight;
         if (legal) used += legal.offsetHeight;
+        if (isMobile() && launch && launch.offsetParent !== null) {
+          used += launch.offsetHeight;
+        }
 
         var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
         var available = Math.max(480, Math.floor(vh - used));
 
         if (isMobile()) {
-          var mobileMin = Math.max(available, 1600);
+          var mobileMin = Math.max(available + 400, 2200);
           frame.style.position = 'static';
+          frame.style.width = '100%';
           frame.style.height = mobileMin + 'px';
           frame.style.minHeight = mobileMin + 'px';
           wrap.style.height = 'auto';
-          wrap.style.minHeight = available + 'px';
+          wrap.style.minHeight = '0';
           wrap.style.overflow = 'visible';
           document.body.style.overflowY = 'auto';
+          document.body.style.overflowX = 'hidden';
         } else {
           frame.style.position = 'absolute';
           frame.style.inset = '0';
+          frame.style.width = '100%';
           frame.style.height = '100%';
           frame.style.minHeight = '100%';
           wrap.style.height = available + 'px';
@@ -138,7 +219,7 @@
       sizeFrame();
       window.addEventListener('resize', sizeFrame);
       window.addEventListener('orientationchange', function () {
-        setTimeout(sizeFrame, 250);
+        setTimeout(sizeFrame, 300);
       });
       if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', sizeFrame);

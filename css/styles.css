@@ -502,28 +502,89 @@ h3 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
   margin-bottom: 0.75rem;
 }
 
+/* IDX page specific — mobile + desktop optimized */
 .search-page {
   padding-top: var(--header-h);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  background: var(--bg);
 }
+
 .search-header {
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
+  padding: 0.85rem 0;
+  flex-shrink: 0;
+  z-index: 2;
 }
+
 .idx-wrapper {
-  flex: 1;
+  flex: 1 1 auto;
   position: relative;
-  min-height: calc(100vh - var(--header-h) - 60px);
-}
-.idx-wrapper iframe {
-  position: absolute;
-  inset: 0;
   width: 100%;
+  min-height: calc(100vh - var(--header-h) - 120px);
+  min-height: calc(100dvh - var(--header-h) - 120px);
+  -webkit-overflow-scrolling: touch;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.idx-wrapper iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  border: 0;
+  min-height: calc(100vh - var(--header-h) - 120px);
+  min-height: calc(100dvh - var(--header-h) - 120px);
   height: 100%;
-  border: none;
+  background: #fff;
+  touch-action: pan-y pinch-zoom;
+}
+
+.search-legal {
+  flex-shrink: 0;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .search-header {
+    padding: 0.65rem 0;
+  }
+  .search-header h1 {
+    font-size: 1.15rem !important;
+  }
+  .idx-wrapper {
+    min-height: calc(100vh - var(--header-h) - 100px);
+    min-height: calc(100dvh - var(--header-h) - 100px);
+  }
+  .idx-wrapper iframe {
+    min-height: 1400px;
+    height: auto;
+  }
+  .search-legal {
+    font-size: 0.68rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .idx-wrapper {
+    overflow: hidden;
+  }
+  .idx-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    height: 100% !important;
+    min-height: 100%;
+  }
 }
 
 .page-hero {
@@ -641,7 +702,7 @@ h3 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
 /* Neighborhood page: panorama banner + content cards */
 .neighborhood-banner {
   width: 100%;
-  height: 380px;
+  height: clamp(200px, 32vw, 520px);
   overflow: hidden;
   position: relative;
   border-bottom: 1px solid var(--border);
@@ -656,9 +717,13 @@ h3 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
   object-fit: cover;
   object-position: center center;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
 }
 @media (max-width: 700px) {
-  .neighborhood-banner { height: 220px; }
+  .neighborhood-banner {
+    height: clamp(160px, 42vw, 260px);
+  }
 }
 
 .content-cards {

@@ -36,18 +36,23 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://lisaharrisrealty.com/neighborhoods/green-valley.html</loc>
+    <loc>https://lisaharrisrealty.com/neighborhoods/henderson.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://lisaharrisrealty.com/neighborhoods/anthem.html</loc>
+    <loc>https://lisaharrisrealty.com/neighborhoods/downtown.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://lisaharrisrealty.com/neighborhoods/macdonald-highlands.html</loc>
+    <loc>https://lisaharrisrealty.com/neighborhoods/north-las-vegas.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://lisaharrisrealty.com/thank-you.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

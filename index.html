@@ -46,6 +46,7 @@
       object-fit: cover;
       z-index: 0;
       background: #0a0a0b;
+      pointer-events: none;
     }
     .hero-overlay {
       background: linear-gradient(
@@ -95,17 +96,19 @@
 
   <section class="hero" aria-label="Hero">
     <video
+      id="hero-video"
       class="hero-video"
       autoplay
       muted
+      defaultMuted
       loop
       playsinline
       webkit-playsinline
       preload="auto"
       disablePictureInPicture
+      disableRemotePlayback
       aria-hidden="true">
       <source src="/Strip%20Video.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -223,27 +226,58 @@
   <script src="/js/main.js" defer></script>
   <script>
     (function () {
-      var v = document.querySelector('.hero-video');
+      var v = document.getElementById('hero-video') || document.querySelector('.hero-video');
       if (!v) return;
+
+      v.muted = true;
+      v.defaultMuted = true;
+      v.volume = 0;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', '');
+
       function tryPlay() {
         v.muted = true;
-        v.defaultMuted = true;
-        v.setAttribute('muted', '');
         v.volume = 0;
         var p = v.play();
         if (p && typeof p.then === 'function') {
           p.catch(function () {});
         }
       }
+
       tryPlay();
-      if (v.readyState >= 2) tryPlay();
+      v.addEventListener('loadedmetadata', tryPlay);
       v.addEventListener('canplay', tryPlay);
-      v.addEventListener('loadeddata', tryPlay);
+      v.addEventListener('canplaythrough', tryPlay);
       window.addEventListener('load', tryPlay);
-      ['click', 'touchstart', 'keydown', 'scroll'].forEach(function (evt) {
-        document.addEventListener(evt, function once() {
-          tryPlay();
-        }, { once: true, passive: true });
+      document.addEventListener('DOMContentLoaded', tryPlay);
+
+      var attempts = 0;
+      var timer = setInterval(function () {
+        attempts++;
+        if (!v.paused) {
+          clearInterval(timer);
+          return;
+        }
+        tryPlay();
+        if (attempts > 16) clearInterval(timer);
+      }, 500);
+
+      function unlock() {
+        tryPlay();
+        document.removeEventListener('click', unlock);
+        document.removeEventListener('touchstart', unlock);
+        document.removeEventListener('keydown', unlock);
+        document.removeEventListener('scroll', unlock);
+      }
+      document.addEventListener('click', unlock, { passive: true });
+      document.addEventListener('touchstart', unlock, { passive: true });
+      document.addEventListener('keydown', unlock, { passive: true });
+      document.addEventListener('scroll', unlock, { passive: true });
+
+      v.addEventListener('pause', function () {
+        if (v.readyState >= 2) {
+          setTimeout(tryPlay, 100);
+        }
       });
     })();
   </script>

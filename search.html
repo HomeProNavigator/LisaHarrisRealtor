@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Search Homes for Sale | Las Vegas & Henderson | Lisa Harris</title>
-  <meta name="description" content="Search current Las Vegas and Henderson homes for sale with live MLS data. Browse Summerlin, Green Valley, Anthem, MacDonald Highlands and more with Lisa Harris." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Search Homes for Sale | Las Vegas &amp; Henderson | Lisa Harris</title>
+  <meta name="description" content="Search current Las Vegas and Henderson homes for sale with live MLS data. Browse Summerlin, Henderson, Downtown Las Vegas, North Las Vegas and more with Lisa Harris." />
   <link rel="canonical" href="https://lisaharrisrealty.com/search.html" />
 
-  <meta property="og:title" content="Search Homes | Las Vegas & Henderson Real Estate" />
+  <meta property="og:title" content="Search Homes | Las Vegas &amp; Henderson Real Estate" />
   <meta property="og:description" content="Live MLS search for Las Vegas and Henderson properties." />
   <meta property="og:url" content="https://lisaharrisrealty.com/search.html" />
 
@@ -15,8 +15,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    html, body { height: 100%; overflow-x: hidden; }
+    body.search-body {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    @media (min-width: 769px) {
+      body.search-body {
+        overflow: hidden;
+        height: 100vh;
+        height: 100dvh;
+      }
+      .search-page {
+        height: calc(100vh - var(--header-h));
+        height: calc(100dvh - var(--header-h));
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="search-body">
   <header class="site-header">
     <div class="nav-inner">
       <a href="/" class="logo">Lisa <span>Harris</span></a>
@@ -35,36 +53,99 @@
 
   <div class="search-page">
     <div class="search-header">
-      <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
         <div>
-          <a href="/" style="font-size: 0.85rem; color: var(--text-dim);">← Back to Home</a>
-          <h1 style="font-size: 1.5rem; margin-top: 0.25rem;">Search Las Vegas & Henderson Homes</h1>
+          <a href="/" style="font-size: 0.8rem; color: var(--text-dim);">← Back to Home</a>
+          <h1 style="font-size: 1.35rem; margin-top: 0.2rem;">Search Las Vegas &amp; Henderson Homes</h1>
         </div>
-        <a href="/contact.html" class="btn btn-primary" style="padding: 0.6rem 1.25rem; font-size: 0.875rem;">Need Help Searching?</a>
+        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;">
+          <a href="https://las.mlsmatrix.com/Matrix/public/IDX.aspx?idx=872890c" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Open Search in New Tab</a>
+          <a href="/contact.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Need Help?</a>
+        </div>
       </div>
     </div>
 
-    <div class="idx-wrapper">
-      <!-- Exact IDX iframe — do not modify source -->
+    <div class="idx-wrapper" id="idx-wrapper">
+      <!-- Exact IDX iframe source — unchanged -->
       <iframe
+        id="idx-frame"
         src="https://las.mlsmatrix.com/Matrix/public/IDX.aspx?idx=872890c"
+        title="Las Vegas MLS Property Search"
         width="100%"
         height="100%"
         frameborder="0"
         marginwidth="0"
         marginheight="0"
-        style="min-height: 100vh; border: none;"
-        title="Las Vegas MLS Property Search"
-        allowfullscreen>
+        scrolling="yes"
+        allowfullscreen
+        loading="eager"
+        referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
 
-    <div style="background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 0.75rem 1.5rem; font-size: 0.75rem; color: var(--text-dim); text-align: center;">
-      <strong style="color: var(--text-muted);">Lisa Harris</strong> · Salesperson · NV License S.0059389 · SimpliHOM Nevada LLC · 170 S. Green Valley Pkwy, Suite 300, Henderson, NV 89012 ·
-      <a href="mailto:Lisah2072@cs.com" style="color: var(--neon);">Lisah2072@cs.com</a> · (702) 523-3336 · Equal Housing Opportunity
+    <div class="search-legal">
+      <strong style="color: var(--text-muted);">Lisa Harris</strong> · Salesperson · NV License S.0059389 · SimpliHOM Nevada LLC ·
+      170 S. Green Valley Pkwy, Suite 300, Henderson, NV 89012 ·
+      <a href="mailto:Lisah2072@cs.com" style="color: var(--neon);">Lisah2072@cs.com</a> ·
+      <a href="tel:+17025233336" style="color: var(--neon);">(702) 523-3336</a> · Equal Housing Opportunity
     </div>
   </div>
 
   <script src="/js/main.js" defer></script>
+  <script>
+    (function () {
+      var frame = document.getElementById('idx-frame');
+      var wrap = document.getElementById('idx-wrapper');
+      if (!frame || !wrap) return;
+
+      function isMobile() {
+        return window.matchMedia('(max-width: 768px)').matches;
+      }
+
+      function sizeFrame() {
+        var header = document.querySelector('.site-header');
+        var searchHeader = document.querySelector('.search-header');
+        var legal = document.querySelector('.search-legal');
+        var used = 0;
+        if (header) used += header.offsetHeight;
+        if (searchHeader) used += searchHeader.offsetHeight;
+        if (legal) used += legal.offsetHeight;
+
+        var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        var available = Math.max(480, Math.floor(vh - used));
+
+        if (isMobile()) {
+          var mobileMin = Math.max(available, 1600);
+          frame.style.position = 'static';
+          frame.style.height = mobileMin + 'px';
+          frame.style.minHeight = mobileMin + 'px';
+          wrap.style.height = 'auto';
+          wrap.style.minHeight = available + 'px';
+          wrap.style.overflow = 'visible';
+          document.body.style.overflowY = 'auto';
+        } else {
+          frame.style.position = 'absolute';
+          frame.style.inset = '0';
+          frame.style.height = '100%';
+          frame.style.minHeight = '100%';
+          wrap.style.height = available + 'px';
+          wrap.style.minHeight = available + 'px';
+          wrap.style.overflow = 'hidden';
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      sizeFrame();
+      window.addEventListener('resize', sizeFrame);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(sizeFrame, 250);
+      });
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', sizeFrame);
+      }
+      setTimeout(sizeFrame, 400);
+      setTimeout(sizeFrame, 1200);
+    })();
+  </script>
 </body>
 </html>

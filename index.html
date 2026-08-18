@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lisa Harris | Luxury Las Vegas & Henderson Real Estate</title>
-  <meta name="description" content="Premier solo real estate representation in Las Vegas and Henderson. Expert guidance for Summerlin, Green Valley, Anthem, MacDonald Highlands, and luxury communities." />
+  <title>Lisa Harris | Las Vegas & Henderson Real Estate Agent</title>
+  <meta name="description" content="Lisa Harris is a trusted Las Vegas and Henderson real estate agent with 23+ years of experience helping first-time buyers, sellers, relocating families, investors, and clients navigating short sales and foreclosures." />
   <link rel="canonical" href="https://lisaharrisrealty.com/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Lisa Harris | Luxury Las Vegas & Henderson Real Estate" />
-  <meta property="og:description" content="Focused solo agent for Las Vegas and Henderson." />
+  <meta property="og:title" content="Lisa Harris | Las Vegas & Henderson Real Estate" />
+  <meta property="og:description" content="23+ years helping buyers, sellers, relocating families, and investors across Las Vegas and Henderson." />
   <meta property="og:url" content="https://lisaharrisrealty.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,10 +30,35 @@
       "postalCode": "89012",
       "addressCountry": "US"
     },
-    "areaServed": [{"@type": "City", "name": "Las Vegas"}, {"@type": "City", "name": "Henderson"}],
-    "priceRange": "$$$$"
+    "areaServed": [
+      {"@type": "City", "name": "Las Vegas"},
+      {"@type": "City", "name": "Henderson"}
+    ],
+    "priceRange": "$$$"
   }
   </script>
+  <style>
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      background: #0a0a0b;
+    }
+    .hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 11, 0.45) 0%,
+        rgba(10, 10, 11, 0.55) 40%,
+        rgba(10, 10, 11, 0.88) 100%
+      );
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video { display: none; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -53,12 +78,21 @@
   </header>
 
   <section class="hero" aria-label="Hero">
-    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-hidden="true">
+      <source src="/Strip%20Video.mp4" type="video/mp4" />
+    </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Las Vegas · Henderson</p>
-      <h1>Luxury real estate,<br><em>focused</em> representation</h1>
-      <p class="hero-lead">A solo practice built for buyers and sellers who value clarity, local expertise, and a single point of accountability.</p>
+      <h1>Real estate with<br><em>clear guidance</em></h1>
+      <p class="hero-lead">Helping buyers, sellers, relocating families, and investors across Las Vegas and Henderson with genuine care — for more than 23 years.</p>
       <div class="hero-ctas">
         <a href="/search.html" class="btn btn-primary">Search Homes</a>
         <a href="/sell.html#valuation" class="btn btn-secondary">Sell My Home</a>
@@ -68,18 +102,17 @@
   </section>
 
   <div class="stats-bar">
-    <div class="stat"><div class="stat-value">Solo</div><div class="stat-label">Focused Practice</div></div>
-    <div class="stat"><div class="stat-value">LV + HND</div><div class="stat-label">Core Markets</div></div>
-    <div class="stat"><div class="stat-value">Direct</div><div class="stat-label">Access to Lisa</div></div>
-    <div class="stat"><div class="stat-value">Local</div><div class="stat-label">Neighborhood Depth</div></div>
+    <div class="stat"><div class="stat-value">23+</div><div class="stat-label">Years Experience</div></div>
+    <div class="stat"><div class="stat-value">Chairman’s</div><div class="stat-label">Circle Member</div></div>
+    <div class="stat"><div class="stat-value">Full</div><div class="stat-label">Service Spectrum</div></div>
+    <div class="stat"><div class="stat-value">Local</div><div class="stat-label">Southern Nevada</div></div>
   </div>
 
-  <!-- About Lisa with headshot -->
   <section class="section" id="about-lisa">
     <div class="container">
       <div class="section-header">
         <p class="eyebrow">Meet Your Agent</p>
-        <h2>Private advocacy, not volume sales</h2>
+        <h2>Experience you can trust</h2>
       </div>
       <div style="display: grid; grid-template-columns: 280px 1fr; gap: 3.5rem; align-items: center;">
         <div style="text-align: center;">
@@ -89,8 +122,8 @@
           <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 0.35rem;">SimpliHOM Nevada LLC</p>
         </div>
         <div>
-          <p style="color: var(--text-muted); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.7;">As a solo agent focused exclusively on Las Vegas and Henderson, I bring institutional-level market intelligence without the corporate friction. Every client receives direct access, rigorous preparation, and a strategy built around their specific goals.</p>
-          <p style="color: var(--text-muted); margin-bottom: 1.75rem;">My process prioritizes clarity, discretion, and results. No generic marketing. No handed-off junior agents. Just focused representation backed by deep local knowledge.</p>
+          <p style="color: var(--text-muted); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.7;">For more than 23 years I have helped people across Southern Nevada buy and sell homes of every kind — first-time buyers, growing families, relocating professionals, downsizers, investors, and clients navigating short sales or foreclosures. You work directly with me.</p>
+          <p style="color: var(--text-muted); margin-bottom: 1.75rem;">As a longtime local and a member of the Chairman’s Circle, I bring deep knowledge of the communities and the builders — along with a genuine, heart-centered approach to one of the biggest financial events in your life.</p>
           <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
             <a href="/about.html" class="btn btn-primary">More About Lisa</a>
             <a href="/contact.html" class="btn btn-secondary">Schedule a Conversation</a>
@@ -110,7 +143,7 @@
         <a href="/neighborhoods/summerlin.html" class="neighborhood-card"><div class="overlay"><h3>Summerlin</h3><p>Master-planned living west of the Strip</p></div></a>
         <a href="/neighborhoods/green-valley.html" class="neighborhood-card"><div class="overlay"><h3>Green Valley</h3><p>Established Henderson living</p></div></a>
         <a href="/neighborhoods/anthem.html" class="neighborhood-card"><div class="overlay"><h3>Anthem</h3><p>Hillside views & country club lifestyle</p></div></a>
-        <a href="/neighborhoods/macdonald-highlands.html" class="neighborhood-card"><div class="overlay"><h3>MacDonald Highlands</h3><p>Luxury estates & golf community</p></div></a>
+        <a href="/neighborhoods/macdonald-highlands.html" class="neighborhood-card"><div class="overlay"><h3>MacDonald Highlands</h3><p>Guard-gated community with Strip views</p></div></a>
       </div>
       <div class="text-center mt-6"><a href="/neighborhoods/" class="btn btn-secondary">Explore All Neighborhoods</a></div>
     </div>
@@ -118,8 +151,8 @@
 
   <section class="section">
     <div class="container text-center">
-      <h2 style="margin-bottom: 1rem;">Ready for a private consultation?</h2>
-      <p class="lead" style="margin: 0 auto 2rem;">Whether you are buying, selling, or simply exploring the market, I am available for a direct conversation.</p>
+      <h2 style="margin-bottom: 1rem;">Ready to talk?</h2>
+      <p class="lead" style="margin: 0 auto 2rem;">Whether you are buying your first home, selling, relocating, or exploring investment options, I am here to help.</p>
       <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
         <a href="/contact.html" class="btn btn-primary">Schedule Consultation</a>
         <a href="/search.html" class="btn btn-secondary">Browse Current Listings</a>
@@ -132,20 +165,56 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="logo">Lisa <span>Harris</span></div>
-          <p>Premier solo representation for luxury residential real estate in Las Vegas and Henderson, Nevada.</p>
+          <p>Trusted real estate representation for buyers, sellers, and investors across Las Vegas and Henderson, Nevada.</p>
         </div>
-        <div class="footer-col"><h4>Explore</h4><a href="/search.html">Search Homes</a><a href="/neighborhoods/">Neighborhoods</a><a href="/sell.html">Sell Your Home</a><a href="/about.html">About Lisa</a></div>
-        <div class="footer-col"><h4>Contact</h4><a href="tel:+17025233336">(702) 523-3336</a><a href="mailto:Lisah2072@cs.com">Lisah2072@cs.com</a><a href="/contact.html">Contact Form</a></div>
-        <div class="footer-col"><h4>Service Areas</h4><a href="/neighborhoods/summerlin.html">Summerlin</a><a href="/neighborhoods/green-valley.html">Green Valley</a><a href="/neighborhoods/anthem.html">Anthem</a><a href="/neighborhoods/macdonald-highlands.html">MacDonald Highlands</a></div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="/search.html">Search Homes</a>
+          <a href="/neighborhoods/">Neighborhoods</a>
+          <a href="/sell.html">Sell Your Home</a>
+          <a href="/about.html">About Lisa</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:+17025233336">(702) 523-3336</a>
+          <a href="mailto:Lisah2072@cs.com">Lisah2072@cs.com</a>
+          <a href="/contact.html">Contact Form</a>
+        </div>
+        <div class="footer-col">
+          <h4>Service Areas</h4>
+          <a href="/neighborhoods/summerlin.html">Summerlin</a>
+          <a href="/neighborhoods/green-valley.html">Green Valley</a>
+          <a href="/neighborhoods/anthem.html">Anthem</a>
+          <a href="/neighborhoods/macdonald-highlands.html">MacDonald Highlands</a>
+        </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-legal"><strong>Lisa Harris</strong> · Salesperson · NV License S.0059389<br>SimpliHOM Nevada LLC · 170 S. Green Valley Pkwy, Suite 300, Henderson, NV 89012</div>
-        <div class="equal-housing"><img src="/Fair%20housing%20and%20Realtor%20Logo.jpg" alt="Equal Housing Opportunity and REALTOR® logos" width="120" height="28" loading="lazy"><span>Equal Housing Opportunity</span></div>
+        <div class="footer-legal">
+          <strong>Lisa Harris</strong> · Salesperson · NV License S.0059389<br>
+          SimpliHOM Nevada LLC · 170 S. Green Valley Pkwy, Suite 300, Henderson, NV 89012
+        </div>
+        <div class="equal-housing">
+          <img src="/Fair%20housing%20and%20Realtor%20Logo.jpg" alt="Equal Housing Opportunity and REALTOR® logos" width="120" height="28" loading="lazy">
+          <span>Equal Housing Opportunity</span>
+        </div>
       </div>
     </div>
   </footer>
 
   <script src="/js/main.js" defer></script>
-  <script src="/js/hero.js" defer></script>
+  <script>
+    (function () {
+      const v = document.querySelector('.hero-video');
+      if (!v) return;
+      v.muted = true;
+      v.volume = 0;
+      v.play().catch(function () {});
+      document.addEventListener('click', function once() {
+        v.muted = true;
+        v.play().catch(function () {});
+        document.removeEventListener('click', once);
+      }, { once: true });
+    })();
+  </script>
 </body>
 </html>

@@ -55,7 +55,6 @@
     }
     .hero {
       background-color: #0a0a0b;
-      background-image: none;
     }
     .hero-overlay {
       background: linear-gradient(
@@ -106,17 +105,34 @@
       class="hero-video"
       autoplay
       muted
-      defaultMuted
       loop
       playsinline
       webkit-playsinline
       preload="auto"
       disablePictureInPicture
-      disableRemotePlayback
       aria-hidden="true">
       <source src="/Strip%20Video.mp4" type="video/mp4" />
       <source src="/Strip Video.mp4" type="video/mp4" />
     </video>
+    <script>
+      (function () {
+        var v = document.getElementById('hero-video');
+        if (!v) return;
+        v.muted = true;
+        v.defaultMuted = true;
+        v.volume = 0;
+        v.playsInline = true;
+        function go() {
+          v.muted = true;
+          v.volume = 0;
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        }
+        go();
+        v.addEventListener('loadeddata', go);
+        v.addEventListener('canplay', go);
+      })();
+    </script>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Las Vegas · Henderson</p>
@@ -233,25 +249,18 @@
   <script src="/js/main.js" defer></script>
   <script>
     (function () {
-      var v = document.getElementById('hero-video') || document.querySelector('.hero-video');
+      var v = document.getElementById('hero-video');
       if (!v) return;
 
-      v.style.display = 'block';
-      v.style.visibility = 'visible';
-      v.style.opacity = '1';
       v.muted = true;
       v.defaultMuted = true;
       v.volume = 0;
+      v.playsInline = true;
       v.setAttribute('muted', '');
+      v.setAttribute('autoplay', '');
       v.setAttribute('playsinline', '');
 
-      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      function tryPlay() {
-        if (reduceMotion) {
-          v.pause();
-          return;
-        }
+      function forcePlay() {
         v.muted = true;
         v.volume = 0;
         var p = v.play();
@@ -260,36 +269,26 @@
         }
       }
 
-      v.addEventListener('error', function () {
-        console.warn('Hero video failed to load', v.error);
+      forcePlay();
+      ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'].forEach(function (ev) {
+        v.addEventListener(ev, forcePlay);
+      });
+      window.addEventListener('load', forcePlay);
+
+      var n = 0;
+      var id = setInterval(function () {
+        n++;
+        if (!v.paused) { clearInterval(id); return; }
+        forcePlay();
+        if (n > 30) clearInterval(id);
+      }, 300);
+
+      ['click', 'touchstart', 'keydown', 'mousemove', 'scroll'].forEach(function (ev) {
+        document.addEventListener(ev, function () { forcePlay(); }, { once: true, passive: true });
       });
 
-      tryPlay();
-      v.addEventListener('loadedmetadata', tryPlay);
-      v.addEventListener('canplay', tryPlay);
-      v.addEventListener('canplaythrough', tryPlay);
-      window.addEventListener('load', tryPlay);
-
-      var attempts = 0;
-      var timer = setInterval(function () {
-        attempts++;
-        if (!v.paused || reduceMotion) {
-          clearInterval(timer);
-          return;
-        }
-        tryPlay();
-        if (attempts > 20) clearInterval(timer);
-      }, 400);
-
-      function unlock() { tryPlay(); }
-      document.addEventListener('click', unlock, { passive: true });
-      document.addEventListener('touchstart', unlock, { passive: true });
-      document.addEventListener('scroll', unlock, { passive: true });
-
       v.addEventListener('pause', function () {
-        if (!reduceMotion && v.readyState >= 2) {
-          setTimeout(tryPlay, 150);
-        }
+        if (v.readyState >= 2) setTimeout(forcePlay, 50);
       });
     })();
   </script>

@@ -19,22 +19,91 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-[[redirects]]
-  from = "/homes"
-  to = "/search.html"
-  status = 301
-
-[[redirects]]
-  from = "/search"
-  to = "/search.html"
-  status = 301
-
 [[headers]]
   for = "/sitemap.xml"
   [headers.values]
     Content-Type = "application/xml; charset=utf-8"
 
+# Pretty URLs are canonical. Force .html → extensionless so GSC does not index twins.
+[[redirects]]
+  from = "/homes"
+  to = "/search"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/search.html"
+  to = "/search"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sell.html"
+  to = "/sell"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/thank-you.html"
+  to = "/thank-you"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/neighborhoods"
   to = "/neighborhoods/"
   status = 301
+
+[[redirects]]
+  from = "/neighborhoods/henderson.html"
+  to = "/neighborhoods/henderson"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/neighborhoods/summerlin.html"
+  to = "/neighborhoods/summerlin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/neighborhoods/green-valley.html"
+  to = "/neighborhoods/green-valley"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/neighborhoods/anthem.html"
+  to = "/neighborhoods/anthem"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/neighborhoods/downtown.html"
+  to = "/neighborhoods/downtown"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/neighborhoods/north-las-vegas.html"
+  to = "/neighborhoods/north-las-vegas"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/neighborhoods/macdonald-highlands.html"
+  to = "/neighborhoods/macdonald-highlands"
+  status = 301
+  force = true

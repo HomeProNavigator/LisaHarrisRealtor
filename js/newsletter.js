@@ -36,9 +36,14 @@
   var nextBtns = document.querySelectorAll("[data-mag='next']");
   var fsBtn = document.getElementById("fs-btn");
   var shell = document.getElementById("mag-shell");
+  if (!stage) return;
+
+  function isSpread() {
+    return twoPage.matches;
+  }
 
   function currentPages() {
-    if (!twoPage.matches) return [index];
+    if (!isSpread()) return [index];
     if (index === 0) return [0];
     if (index + 1 < pages.length) return [index, index + 1];
     return [index];
@@ -65,9 +70,11 @@
     stage.appendChild(wrap);
 
     var lastShown = shown[shown.length - 1];
-    count.textContent = shown.length === 2
-      ? (shown[0] + 1) + "–" + (shown[1] + 1) + " / " + pages.length
-      : (shown[0] + 1) + " / " + pages.length;
+    if (count) {
+      count.textContent = shown.length === 2
+        ? (shown[0] + 1) + "–" + (shown[1] + 1) + " / " + pages.length
+        : (shown[0] + 1) + " / " + pages.length;
+    }
 
     var atStart = index <= 0;
     var atEnd = lastShown >= pages.length - 1;
@@ -82,29 +89,44 @@
   function go(dir) {
     if (dir < 0) {
       if (index <= 0) return;
-      if (twoPage.matches) {
-        if (index === 1) index = 0;
-        else index = Math.max(1, index - 2);
+      if (isSpread()) {
+        index = index === 1 ? 0 : Math.max(1, index - 2);
       } else {
         index -= 1;
       }
     } else {
-      var shown = currentPages();
-      var last = shown[shown.length - 1];
+      var last = currentPages()[currentPages().length - 1];
       if (last >= pages.length - 1) return;
       index = last + 1;
     }
     render();
   }
 
-  prevBtns.forEach(function (b) { b.addEventListener("click", function () { go(-1); }); });
-  nextBtns.forEach(function (b) { b.addEventListener("click", function () { go(1); }); });
+  prevBtns.forEach(function (b) {
+    b.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      go(-1);
+    });
+  });
+  nextBtns.forEach(function (b) {
+    b.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      go(1);
+    });
+  });
 
   document.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); go(1); }
-    if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
-    if (e.key === "f" || e.key === "F") { toggleFs(); }
-    if (e.key === "Escape" && isFs()) { /* native handles exit */ }
+    if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+      e.preventDefault();
+      go(1);
+    }
+    if (e.key === "ArrowLeft" || e.key === "PageUp") {
+      e.preventDefault();
+      go(-1);
+    }
+    if (e.key === "f" || e.key === "F") toggleFs();
   });
 
   var touchX = null;
@@ -114,15 +136,14 @@
   stage.addEventListener("touchend", function (e) {
     if (touchX == null) return;
     var dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    if (Math.abs(dx) > 30) go(dx < 0 ? 1 : -1);
     touchX = null;
   });
 
   stage.addEventListener("click", function (e) {
     var rect = stage.getBoundingClientRect();
     var x = e.clientX - rect.left;
-    if (x < rect.width * 0.28) go(-1);
-    else if (x > rect.width * 0.72) go(1);
+    go(x < rect.width / 2 ? -1 : 1);
   });
 
   function isFs() {
@@ -132,21 +153,31 @@
     if (fsBtn) fsBtn.textContent = isFs() ? "Exit" : "Fullscreen";
   }
   function toggleFs() {
+    if (!shell) return;
     if (isFs()) {
-      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      var exit = document.exitFullscreen || document.webkitExitFullscreen;
+      if (exit) exit.call(document);
     } else {
       var req = shell.requestFullscreen || shell.webkitRequestFullscreen;
       if (req) req.call(shell);
     }
   }
-  if (fsBtn) fsBtn.addEventListener("click", toggleFs);
+  if (fsBtn) {
+    fsBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleFs();
+    });
+  }
   document.addEventListener("fullscreenchange", setFsLabel);
   document.addEventListener("webkitfullscreenchange", setFsLabel);
 
-  twoPage.addEventListener("change", function () {
-    if (twoPage.matches && index > 0 && index % 2 === 0) index -= 1;
+  function onMq() {
+    if (isSpread() && index > 0 && index % 2 === 0) index -= 1;
     render();
-  });
+  }
+  if (twoPage.addEventListener) twoPage.addEventListener("change", onMq);
+  else if (twoPage.addListener) twoPage.addListener(onMq);
 
   render();
 })();

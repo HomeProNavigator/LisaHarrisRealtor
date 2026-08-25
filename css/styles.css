@@ -863,6 +863,35 @@ h3 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
   height: 100%;
   border: 0;
 }
+body.newsletter-page .page-hero {
+  padding: calc(var(--header-h) + 0.85rem) 0 0.85rem;
+}
+body.newsletter-page .page-hero h1 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+body.newsletter-page .page-hero .lead {
+  display: none;
+}
+body.newsletter-page .issuu-stage {
+  padding: 0;
+}
+body.newsletter-page .issuu-wrap {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: calc(100dvh - var(--header-h) - 5.25rem);
+  min-height: 560px;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+body.newsletter-page .issuu-wrap:fullscreen,
+body.newsletter-page .issuu-wrap:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+}
 .issue-list {
   display: flex;
   flex-wrap: wrap;

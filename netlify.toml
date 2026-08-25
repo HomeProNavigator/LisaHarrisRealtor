@@ -116,3 +116,9 @@
   to = "/guides/sellers-guide"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/newsletter.html"
+  to = "/newsletter"
+  status = 301
+  force = true

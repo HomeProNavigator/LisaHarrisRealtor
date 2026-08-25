@@ -1,0 +1,20 @@
+# Lisa Harris
+
+> Henderson and Las Vegas real estate salesperson, NV license S.0059389, SimpliHOM Nevada LLC. 25+ years helping buyers, sellers, relocating households, and investors as an individual agent (not a team). Equal Housing Opportunity.
+
+- Site: https://isellvegasrealestate.com/
+- Phone: (702) 523-3336
+- Email: Lisah2072@cs.com
+- Office: 170 S. Green Valley Pkwy, Suite 300, Henderson, NV 89012
+- Distinct from Lisa A. Harris, NV license 0181873 (Signature Real Estate Group)
+
+## Pages
+
+- [Home](https://isellvegasrealestate.com/): Henderson & Las Vegas real estate agent
+- [Sell](https://isellvegasrealestate.com/sell): Selling a home in Henderson or Las Vegas
+- [About](https://isellvegasrealestate.com/about): License, brokerage, experience
+- [Neighborhoods](https://isellvegasrealestate.com/neighborhoods/): Summerlin, Henderson, Green Valley, Anthem, Downtown, North Las Vegas, MacDonald Highlands
+- [Green Valley](https://isellvegasrealestate.com/neighborhoods/green-valley)
+- [Contact](https://isellvegasrealestate.com/contact)
+
+This file is an optional entity card for LLM crawlers. Google Search does not use llms.txt.

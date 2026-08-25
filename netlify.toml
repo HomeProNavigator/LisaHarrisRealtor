@@ -112,7 +112,7 @@
   force = true
 
 [[redirects]]
-  from = "/neighborhoods/macdonald-highlands.html"
-  to = "/neighborhoods/macdonald-highlands"
+  from = "/guides/sellers-guide.html"
+  to = "/guides/sellers-guide"
   status = 301
   force = true

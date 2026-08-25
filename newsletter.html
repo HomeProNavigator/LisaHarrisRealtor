@@ -37,7 +37,7 @@
   }
   </script>
 </head>
-<body>
+<body class="newsletter-page">
   <header class="site-header">
     <div class="nav-inner">
       <a href="/" class="logo">Lisa <span>Harris</span></a>
@@ -59,39 +59,34 @@
     <section class="page-hero">
       <div class="container">
         <nav class="breadcrumb"><a href="/">Home</a> · Newsletter</nav>
-        <p class="eyebrow">Lisa Harris · NV License S.0059389</p>
-        <h1>The Insider</h1>
-        <p class="lead" style="margin-top: 1rem; max-width: 46ch;">Monthly notes for Henderson and Las Vegas homeowners — market, selling, and the Valley as I see it. Flip the pages below.</p>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap;">
+          <div>
+            <p class="eyebrow">The Insider · NV License S.0059389</p>
+            <h1 id="issue-title">August 2026</h1>
+          </div>
+          <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+            <button type="button" class="btn btn-primary" id="fs-btn">Enter fullscreen</button>
+            <a id="issue-open" class="btn btn-secondary" href="https://issuu.com/palmercreative/docs/the_insider_august_-_lisa_harris" target="_blank" rel="noopener">Open on Issuu</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top: 2rem;">
+    <section class="issuu-stage">
+      <div class="issuu-wrap" id="issuu-wrap">
+        <iframe
+          id="issuu-frame"
+          title="The Insider — August 2026, Lisa Harris newsletter"
+          src="https://e.issuu.com/embed.html?u=palmercreative&d=the_insider_august_-_lisa_harris&backgroundColor=%230a0a0b"
+          allow="clipboard-write; fullscreen"
+          allowfullscreen
+          loading="eager"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
       <div class="container">
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap; margin-bottom:1rem;">
-          <div>
-            <p class="eyebrow" id="issue-kicker">Current issue</p>
-            <h2 id="issue-title" style="font-size:1.6rem; margin:0;">August 2026</h2>
-          </div>
-          <a id="issue-open" class="btn btn-secondary" href="https://issuu.com/palmercreative/docs/the_insider_august_-_lisa_harris" target="_blank" rel="noopener">Open full screen on Issuu</a>
-        </div>
-
-        <div class="issuu-wrap">
-          <iframe
-            id="issuu-frame"
-            title="The Insider — August 2026, Lisa Harris newsletter"
-            src="https://e.issuu.com/embed.html?u=palmercreative&d=the_insider_august_-_lisa_harris&backgroundColor=%230a0a0b"
-            allow="clipboard-write; fullscreen"
-            allowfullscreen
-            loading="eager"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <p class="guide-note" style="margin-top:0.85rem;">Use the arrows or swipe to turn pages. Fullscreen, share, and print/download (when Issuu provides them) are in the viewer toolbar.</p>
-
-        <div>
-          <p class="eyebrow" style="margin-top:2rem;">Issues</p>
-          <div class="issue-list" id="issue-list" role="list"></div>
-        </div>
+        <p class="guide-note" style="margin-top:0.85rem;">The issue opens full-page under the header. Browsers block true fullscreen until you click Enter fullscreen (one click). Then use arrows or swipe to turn pages.</p>
+        <p class="eyebrow" style="margin-top:1.5rem;">Issues</p>
+        <div class="issue-list" id="issue-list" role="list"></div>
       </div>
     </section>
 
@@ -189,6 +184,24 @@
         btn.addEventListener("click", function () { show(issue, btn); });
         list.appendChild(btn);
       });
+      var wrap = document.getElementById("issuu-wrap");
+      var fsBtn = document.getElementById("fs-btn");
+      function isFs() {
+        return document.fullscreenElement === wrap || document.webkitFullscreenElement === wrap;
+      }
+      function setFsLabel() {
+        fsBtn.textContent = isFs() ? "Exit fullscreen" : "Enter fullscreen";
+      }
+      fsBtn.addEventListener("click", function () {
+        if (isFs()) {
+          (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        } else {
+          var req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
+          if (req) req.call(wrap);
+        }
+      });
+      document.addEventListener("fullscreenchange", setFsLabel);
+      document.addEventListener("webkitfullscreenchange", setFsLabel);
     })();
   </script>
 </body>

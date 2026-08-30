@@ -876,6 +876,12 @@ body.newsletter-page .inbox-cta { display: none; }
 }
 .mag-toolbar h1 { font-size: 1.1rem; margin: 0; }
 .mag-toolbar .eyebrow { margin-bottom: 0.05rem; }
+.mag-links {
+  margin-top: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+.mag-links a { color: var(--neon); }
 .mag-controls {
   display: flex;
   align-items: center;

@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lisa Harris | Henderson Realtor & Real Estate Agent</title>
-  <meta name="description" content="Lisa Harris is a Henderson realtor and Las Vegas real estate agent (NV license S.0059389) with 25+ years helping buyers, sellers, relocating families, investors, and clients navigating short sales and foreclosures." />
+  <meta name="description" content="Henderson realtor Lisa Harris (NV S.0059389) helps buyers, sellers, and relocating families across Las Vegas and Henderson. Call (702) 523-3336." />
   <link rel="canonical" href="https://isellvegasrealestate.com/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Lisa Harris | Henderson Realtor & Real Estate Agent" />
-  <meta property="og:description" content="Henderson realtor and Las Vegas real estate agent. 25+ years. NV license S.0059389. Call (702) 523-3336." />
+  <meta property="og:description" content="Henderson realtor and Las Vegas real estate agent. 25+ years. Call (702) 523-3336." />
   <meta property="og:url" content="https://isellvegasrealestate.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,6 +18,7 @@
   {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
+    "@id": "https://isellvegasrealestate.com/#agent",
     "name": "Lisa Harris",
     "alternateName": ["Lisa Harris Realtor", "Lisa Harris Real Estate Agent"],
     "jobTitle": "Real estate salesperson",
@@ -40,7 +41,7 @@
   }
   </script>
   <style>
-    .hero-video {
+    .hero-video, .hero-poster {
       position: absolute !important;
       top: 0 !important;
       left: 0 !important;
@@ -51,9 +52,11 @@
       z-index: 0 !important;
       background: #0a0a0b;
       pointer-events: none;
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: block !important;
+    }
+    .hero-poster { z-index: 0; }
+    .hero-video { z-index: 1; }
+    @media (max-width: 768px), (prefers-reduced-motion: reduce) {
+      .hero-video { display: none !important; }
     }
     .hero {
       background-color: #0a0a0b;
@@ -103,42 +106,50 @@
   </header>
 
   <section class="hero" aria-label="Hero">
+    <img
+      class="hero-poster"
+      src="/images/hero-poster.jpg"
+      alt=""
+      width="1920"
+      height="1080"
+      decoding="async"
+      fetchpriority="high">
     <video
       id="hero-video"
       class="hero-video"
-      autoplay
       muted
       loop
       playsinline
       webkit-playsinline
-      preload="auto"
+      preload="none"
+      poster="/images/hero-poster.jpg"
       disablePictureInPicture
-      aria-hidden="true">
-      <source src="/Strip%20Video.mp4" type="video/mp4" />
-      <source src="/Strip Video.mp4" type="video/mp4" />
-    </video>
+      aria-hidden="true"></video>
     <script>
       (function () {
         var v = document.getElementById('hero-video');
         if (!v) return;
+        var desktop = window.matchMedia('(min-width: 769px)').matches;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!desktop || reduce) {
+          v.remove();
+          return;
+        }
+        var s = document.createElement('source');
+        s.src = '/strip-hero.mp4';
+        s.type = 'video/mp4';
+        v.appendChild(s);
         v.muted = true;
         v.defaultMuted = true;
         v.volume = 0;
         v.playsInline = true;
-        function go() {
-          v.muted = true;
-          v.volume = 0;
-          var p = v.play();
-          if (p && p.catch) p.catch(function () {});
-        }
-        go();
-        v.addEventListener('loadeddata', go);
-        v.addEventListener('canplay', go);
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
       })();
     </script>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Las Vegas · Henderson</p>
+      <p class="hero-eyebrow">Henderson realtor · Las Vegas</p>
       <h1>Real estate with<br><em>clear guidance</em></h1>
       <p class="hero-lead">Helping buyers, sellers, relocating families, and investors across Las Vegas and Henderson with genuine care — for more than 25 years.</p>
       <div class="hero-ctas">

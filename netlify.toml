@@ -76,12 +76,6 @@
   force = true
 
 [[redirects]]
-  from = "/neighborhoods"
-  to = "/neighborhoods/"
-  status = 301
-  force = true
-
-[[redirects]]
   from = "/neighborhoods/henderson.html"
   to = "/neighborhoods/henderson"
   status = 301
